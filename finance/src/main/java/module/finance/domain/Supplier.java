@@ -24,8 +24,8 @@
  */
 package module.finance.domain;
 
-import pt.ist.bennu.core.domain.util.Address;
-import pt.ist.bennu.core.domain.util.Money;
+import module.finance.util.Address;
+import module.finance.util.Money;
 
 /**
  * 
@@ -35,9 +35,9 @@ import pt.ist.bennu.core.domain.util.Money;
  */
 public class Supplier extends Supplier_Base {
 
-    public static Money SUPPLIER_LIMIT = new Money("75000");
+    public static final Money SUPPLIER_LIMIT = new Money("75000");
 
-    public static Money SOFT_SUPPLIER_LIMIT = new Money("60000");
+    public static final Money SOFT_SUPPLIER_LIMIT = new Money("60000");
 
     public Supplier() {
         super();
@@ -120,16 +120,6 @@ public class Supplier extends Supplier_Base {
             }
         }
         return null;
-    }
-
-    @Deprecated
-    public java.util.Set<module.finance.domain.Provision> getProvisions() {
-        return getProvisionsSet();
-    }
-
-    @Deprecated
-    public java.util.Set<module.finance.domain.SupplierContact> getSupplierContact() {
-        return getSupplierContactSet();
     }
 
 }

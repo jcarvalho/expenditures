@@ -24,7 +24,8 @@
  */
 package module.finance.domain;
 
-import pt.ist.bennu.core.domain.MyOrg;
+import org.fenixedu.bennu.core.domain.Bennu;
+
 import pt.ist.fenixframework.Atomic;
 
 /**
@@ -32,37 +33,27 @@ import pt.ist.fenixframework.Atomic;
  * @author Luis Cruz
  * 
  */
-public class FinanceSystem extends FinanceSystem_Base {
+public final class FinanceSystem extends FinanceSystem_Base {
 
     public static FinanceSystem getInstance() {
-        final MyOrg myOrg = MyOrg.getInstance();
-        if (myOrg.getFinanceSystem() == null) {
-            initialize();
+        FinanceSystem system = Bennu.getInstance().getFinanceSystem();
+        if (system == null) {
+            return initialize();
         }
-        return myOrg.getFinanceSystem();
+        return system;
     }
 
     @Atomic
-    public synchronized static void initialize() {
-        final MyOrg myOrg = MyOrg.getInstance();
-        if (myOrg.getFinanceSystem() == null) {
-            new FinanceSystem(myOrg);
+    private static FinanceSystem initialize() {
+        if (Bennu.getInstance().getFinanceSystem() == null) {
+            return new FinanceSystem();
         }
+        return Bennu.getInstance().getFinanceSystem();
     }
 
-    private FinanceSystem(final MyOrg myOrg) {
+    private FinanceSystem() {
         super();
-        setMyOrg(myOrg);
-    }
-
-    @Deprecated
-    public java.util.Set<module.finance.domain.Provision> getProvisions() {
-        return getProvisionsSet();
-    }
-
-    @Deprecated
-    public java.util.Set<module.finance.domain.Supplier> getSuppliers() {
-        return getSuppliersSet();
+        setBennu(Bennu.getInstance());
     }
 
 }
